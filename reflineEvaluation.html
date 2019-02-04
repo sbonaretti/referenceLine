@@ -1,0 +1,243 @@
+<!-- DOCTYPE HTML -->
+<html>
+
+	<head>
+		<title>Reference Line Training and Evaluation</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		  <link rel="stylesheet" href="animate.css">
+		  <link rel="stylesheet" href="referencete.css">
+		  <link rel="stylesheet" href="coverpage.css">
+		  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		
+		<script type="text/javascript"
+			src="http://code.jquery.com/jquery-latest.js">
+		</script>
+		
+	</head>
+
+	<body>
+
+	<div id="interface" class ="unselectable">
+
+		<canvas id="scoutScan" width="512" height="512">
+			Your browser does not support the HTML5 canvas tag.</canvas>
+		<div id = "belowcontainer">
+			<div id="sideNums">
+				<p class="boldMargin">7</p>
+				<p class ="boldMargin">5</p>
+				<p class ="boldMargin">3</p>
+				<p class ="boldMargin">1</p>
+				<p class="bold">0</p>
+			</div>
+			<div id="split">
+				<div id="timer"></div>
+			</div>
+			<div id="preview"></div>
+			<canvas id="gradient" width="21" height="383"></canvas>
+		</div>
+
+		<div id = "hello" style="top: 0px; right: 760px;" width = "200" height = "600">
+
+			<img src="img/reflineheader.png" id = "resizeHeader"/>
+
+			<p id="demo2"></p>
+			<p id="demo3"></p>
+
+			<p id ="mode">HELLO</p>
+
+			<form id="chooseBones" style="display:none;">
+			  	<input type="radio" name="bones" id="radius" value = "1" />Radius
+			  	<input type="radio" name="bones" id="tibia" value = "0"/>Tibia
+			</form>
+
+			<!-- RADIUS TIBIA BUTTONS -->
+			  <button id = "rButton" type="button" class="btn btn-info small-btn" onclick ="chooseBones(1)">Radius</button>
+			  <button id = "tButton" type="button" class="btn btn-info small-btn" onclick ="chooseBones(0)">Tibia</button>
+			  <br></br>
+			<form id = "set" style="display:none;">
+				<p>Set (outdated):
+					<input type="text" id="getSet" name = "setHere" maxLength="2" size="2"/>
+				</p>
+			</form>
+			<!--<p>
+				Random Sets: <input type="checkbox" id="checkRandom" onchange = 'updateSetDropDown()'/>
+			</p> -->
+				<div id="dropSetSelect">
+				<input type = "button"
+					id = "dropSetButton"
+					class="btn btn-info large-btn"
+					value="Get Set"
+					onclick="drawImgSelected('random')"
+					width="20px">
+				</input>                                      
+				  <div class="dropdown">
+				    <button id = "dropSetButton" style="display:none;" class="btn btn-info dropdown-toggle large-btn" type="button" id="menu1" data-toggle="dropdown">Select a Set
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(1)">1</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(2)">2</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(3)">3</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(4)">4</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(5)">5</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(6)">6</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(7)">7</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(8)">8</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(9)">9</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(10)">10</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(11)">11</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(12)">12</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(13)">13</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(14)">14</a></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected(15)">15</a></li>
+				      <li role="presentation" class="divider"></li>
+				      <li role="presentation"><a role="menuitem" tabindex="-1" href="#" onclick = "drawImgSelected('random')" >Random</a></li>
+				    </ul>
+				  </div>
+				</div>
+
+
+			<form style="display:none;">
+				<p id = "setSelector"> Select a Set:
+					<select id="dropSet" onchange='drawImg()'>
+					  <option value="dummy" selected="selected"> </option>
+					  <option value="1">1</option>
+					  <option value="2">2</option>
+					  <option value="3">3</option>
+					  <option value="4">4</option>
+					  <option value="5">5</option>
+					  <option value="6">6</option>
+					  <option value="7">7</option>
+					  <option value="8">8</option>
+					  <option value="9">9</option>
+					  <option value="10">10</option>
+					  <option value="11">11</option>
+					  <option value="12">12</option>
+					  <option value="13">13</option>
+					  <option value="14">14</option>
+					  <option value="15">15</option>
+					  <option value="random">Random</option>
+					</select>
+				</p>
+			</form>
+
+			<input type = "button"
+					id = "getLine"
+					class="btn btn-info large-btn"
+					value="Set Reference Line"
+					onclick="startLine()"
+					width="20px">
+			</input>
+
+			<input type = "button"
+					id = "confirmLine"
+					class="btn btn-info small-btn"
+					value="Confirm"
+					 onclick="checkPos()">
+			</input>
+
+			<input type = "button"
+					id = "nextImg"
+					class="btn btn-info small-btn invisible"
+					value="Next"
+					onclick="nextImage()">
+			</input>
+
+			<!--<img src ="RadiusTibiaImages/C0006657_radius.jpg" /> -->
+			<p id = "demo"></p>
+			<p id = "hi"></p>
+			<!-- <p id = 'here'>Hello World!</p> -->
+
+			<div class="progresso invisible">
+			    <div class="progress progress-striped active">
+			        <div id = "bar" class="progress-bar progress-bar-info" style="min-width: 2em; width:0%;">0/8</div>
+			    </div>
+			</div>
+
+			<canvas id="trafficLight" width="340" height="120" style="display:none;"></canvas>
+			<div id = "trafficAlerts" style="margin: 10px 0px 10px 0px;">
+				<div id = "goodLine" class="alert alert-success" role="alert" style="display:none;">
+					<strong>Good!</strong> </div>
+				<div id = "okLine" class="alert alert-info" role="alert" style="display:none;"><strong>Ok! </strong></div>
+				<div id = "badLine" class="alert alert-danger" role="alert" style="display:none;">
+					<strong>Out of Range! </strong></div>
+			</div>
+
+
+			<p id = "traffic" style="display:none;"></p>
+
+		</div>
+
+	</div>
+
+	<div id="preWindow"> <!--this is the lightbox that appears
+            in front :) -->
+            <h1 class="animated fadeInDown">Example</h1>
+            	<h2>
+                	Select An Option
+                </h2>
+				<p align="center">
+								<form id="chooseTE">
+								  	<input type="radio" name="mode" id="training" value = "1" />Training
+								  	<input type="radio" name="mode" id="evaluation" value = "0"/>Evaluation
+								</form>
+								<form id="not usable as of now">
+									<br>Not in Use currently</br>
+								  	<input type="radio" name="mode" id="pediatric" value = "1" />Pediatric
+								  	<input type="radio" name="mode" id="notPediatric" value = "0"/>Not Pediatric
+								</form>
+					<a id="close-preWindow" href="#">Proceed to Reference Line</a>
+					<!-- makes link panel and specifies it as target to go
+				into function -->
+				</p>
+            </div><!-- /panel -->
+
+            <!-- <div id="lightbox2"></div> /lightbox, the gray background that
+            comes with the box-->
+
+
+	<!--<div id="lightbox-panel"> this is the lightbox that appears
+            in front :) -->
+
+            <div class="panel panel-info" id="lightbox-panel">
+				  	<div class="panel-heading">
+				    <h3 class="panel-title">Feedback</h3>
+				  </div>
+				  <div class="panel-body">
+				
+                <div id="feedbackHolder">
+                	<canvas id="lbCanvas" width="512" height="512">
+					Your browser does not support the HTML5 canvas tag.</canvas>
+				</div>
+
+				<div id = "okWrapper">
+					<div class="exact" id="feedBackText1">HELLO</div>
+					<div class="ok" id="feedBackText2">HELLO</div>
+					<div class="outOfRange" id="feedBackText3">HELLO</div>
+				</div>
+
+				<div id = "belowText">
+
+					<p id="aboveBelow"></p>
+
+					<p align="center">
+						<a id="close-panel" class="btn btn-info" href="#">Close this window</a>
+						<!-- makes link panel and specifies it as target to go
+					into function -->
+					</p>
+				</div>
+				  </div>
+    </div><!-- /panel -->
+
+    <div id="lightbox" style="display:none;"></div> <!-- the grey background -->
+
+    <script src="radiusjSON.js"></script>
+
+	<script src="tibiajSON.js"></script>
+
+	<script type="text/javascript" src="MoveLineEvaluation.js"></script>
+	
+	</body>
+</html>
